@@ -14,7 +14,7 @@ void bubbleSort(int arr[], int n)
     for (i = 0; i <= n; i++)
     {
         swapped = 1; // Utilisé pour optimiser le tri
-        for (j = 1; j < n - i - 1; j++)
+        for (j = 1; j <= n - i - 1; j++)
         {
             // Comparaison et échange d'éléments si l'élément courant est plus grand que le suivant
             if (arr[j] > arr[j + 1])
@@ -38,7 +38,7 @@ void bubbleSort(int arr[], int n)
 void insertionSort(int arr[], int n)
 {
     int i, key, j;
-    for (i = 1; i < n; i++)
+    for (i = 1; i <= n; i++)
     {
         key = arr[i];
         j = i - 1;
