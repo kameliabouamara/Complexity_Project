@@ -207,7 +207,7 @@ void printArray(int arr[], int n)
     printf("} \n");
 }
 
-void remplissage(int arr[], int n)
+void remplissageRandom(int arr[], int n)
 {
     int i;
     for (i = 1; i <= n; i++)
@@ -215,6 +215,22 @@ void remplissage(int arr[], int n)
         arr[i] = rand() % 10;
     }
 }
+int RemplissageParIndex(int arr[], int n){
+    //int *arr = malloc(sizeof(int)*n);
+    for(int i=1; i<=n; i++){
+        arr[i]=i;
+    }
+    
+}
+
+int RemplissageParIndexInverse(int arr[], int n){
+    //int *arr = malloc(sizeof(int)*n);
+    for(int i=0; i<=n; i++){
+        arr[i]=n+1-i;
+    }
+
+}
+//*********************************
 int main()
 {
     //int tableau[] = {1};
@@ -222,18 +238,28 @@ int main()
     printf("Donnez une taille a votre tableau: \n");
     scanf("%d", &n);
     int* tableau = (int*)malloc(n * sizeof(int));
+    int* tableau2 = (int*)malloc(n * sizeof(int));
+    int* tableau3 = (int*)malloc(n * sizeof(int));
 
-    if (tableau == NULL) {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
-    int t1, t2, tempsExec;
-    int choix;
-
-    remplissage(tableau, n);
-    printf("L'état du tableau avant le tri est comme suit : \n");
+    
+        
+    printf("Tableau remplis avec random.\n");
+    remplissageRandom(tableau,n);
     printArray(tableau, n);
+    
+    printf("Tableau remplis avec des valeurs de 1 à n.\n");
+    RemplissageParIndex(tableau2,n);
+    printArray(tableau2, n);
+    
+    printf("Tableau remplis avec des valeurs de n à 1.\n");
+    RemplissageParIndexInverse(tableau3,n);
+    printArray(tableau3, n);
+        
+    
 
+    int t1, t2;
+    double tempsExec;
+    int choix;
     printf("Choisisez votre tri [1,2,3,4,5] : \n");
     scanf("%d", &choix);
 
@@ -241,52 +267,131 @@ int main()
     {
     case 1:
         printf("Vous avez choisi le tri par insetion.\n");
+        printf("Tableau avec valeurs random");
         t1 = clock();
         insertionSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
-        printArray(tableau, n);
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de 1 à n");
+        t1 = clock();
+        insertionSort(tableau2, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de n à 1");
+        t1 = clock();
+        insertionSort(tableau3, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        //printArray(tableau, n);
         break;
     case 2:
         printf("Vous avez choisi le tri à bulles.\n");
+        printf("Tableau avec valeurs random");
         t1 = clock();
         bubbleSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
-        printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, n);
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de 1 à n");
+        t1 = clock();
+        bubbleSort(tableau2, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de n à 1");
+        t1 = clock();
+        bubbleSort(tableau3, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         break;
     case 3:
         printf("Vous avez choisi le tri Fusion.\n");
+       
+        int left, right, middle;
+        printf("Donnez les valeurs left, middle, right pour créer les 2 subarrays.\n");
+        scanf("%d, %d, %d",&left, &middle, &right);
+        printf("Tableau avec valeurs random");
         t1 = clock();
-        triFusion(tableau, 0, 5, 10);
+        triFusion(tableau, left, middle, right);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
-        printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, n);
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de 1 à n");
+        t1 = clock();
+        triFusion(tableau2, left, middle, right);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de n à 1");
+        t1 = clock();
+        triFusion(tableau3, left, middle, right);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         break;
     case 4:
         printf("Vous avez choisi le tri rapide (quick sort).\n");
+        printf("Donnez le minimum et le maximum du subarray.\n");
+        int min, max;
+        scanf("%d, %d",&min, &max);
+        printf("Tableau avec valeurs random");
         t1 = clock();
-        quickSort(tableau, 3, 10);
+        quickSort(tableau, min, max);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
-        printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, 10);
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de 1 à n");
+        t1 = clock();
+        quickSort(tableau2, min, max);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de n à 1");
+        t1 = clock();
+        quickSort(tableau3, min, max);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         break;
     case 5:
         printf("Vous avez choisi le tri par tas (heap sort).\n");
+        printf("Tableau avec valeurs random");
         t1 = clock();
-        heapSort(tableau, 10);
+        heapSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
-        printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, 10);
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de 1 à n");
+        t1 = clock();
+        heapSort(tableau2, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
+        printf("Tableau avec valeurs de n à 1");
+        t1 = clock();
+        heapSort(tableau3, n);
+        t2 = clock();
+        tempsExec = t2 - t1;
+        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         break;
     default:
         printf("Il existe que 5 tris dans ce programme!!\n");
