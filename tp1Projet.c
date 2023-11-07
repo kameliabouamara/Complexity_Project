@@ -217,13 +217,22 @@ void remplissage(int arr[], int n)
 }
 int main()
 {
-    int tableau[] = {1};
+    //int tableau[] = {1};
+    int n;
+    printf("Donnez une taille a votre tableau: \n");
+    scanf("%d", &n);
+    int* tableau = (int*)malloc(n * sizeof(int));
+
+    if (tableau == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
     int t1, t2, tempsExec;
     int choix;
 
-    remplissage(tableau, 10);
+    remplissage(tableau, n);
     printf("L'état du tableau avant le tri est comme suit : \n");
-    printArray(tableau, 10);
+    printArray(tableau, n);
 
     printf("Choisisez votre tri [1,2,3,4,5] : \n");
     scanf("%d", &choix);
@@ -233,21 +242,21 @@ int main()
     case 1:
         printf("Vous avez choisi le tri par insetion.\n");
         t1 = clock();
-        insertionSort(tableau, 10);
+        insertionSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf("%d - %d = %d \n", t2, t1, tempsExec);
-        printArray(tableau, 10);
+        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
+        printArray(tableau, n);
         break;
     case 2:
         printf("Vous avez choisi le tri à bulles.\n");
         t1 = clock();
-        bubbleSort(tableau, 10);
+        bubbleSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf("%d - %d = %d \n", t2, t1, tempsExec);
+        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
         printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, 10);
+        printArray(tableau, n);
         break;
     case 3:
         printf("Vous avez choisi le tri Fusion.\n");
@@ -255,9 +264,9 @@ int main()
         triFusion(tableau, 0, 5, 10);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf("%d - %d = %d \n", t2, t1, tempsExec);
+        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
         printf("L'état du tableau aprés le tri est comme suit : \n");
-        printArray(tableau, 10);
+        printArray(tableau, n);
         break;
     case 4:
         printf("Vous avez choisi le tri rapide (quick sort).\n");
@@ -265,7 +274,7 @@ int main()
         quickSort(tableau, 3, 10);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf("%d - %d = %d \n", t2, t1, tempsExec);
+        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
         printf("L'état du tableau aprés le tri est comme suit : \n");
         printArray(tableau, 10);
         break;
@@ -275,7 +284,7 @@ int main()
         heapSort(tableau, 10);
         t2 = clock();
         tempsExec = t2 - t1;
-        printf("%d - %d = %d \n", t2, t1, tempsExec);
+        printf(" Le temps d'execution est calcul est comme suit : %d - %d = %d \n", t2, t1, tempsExec);
         printf("L'état du tableau aprés le tri est comme suit : \n");
         printArray(tableau, 10);
         break;
