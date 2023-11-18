@@ -207,29 +207,34 @@ void printArray(int arr[], int n)
     printf("} \n");
 }
 
-void remplissageRandom(int arr[], int n)
+int *remplissageRandom(int n)
 {
+    int *arr = malloc(sizeof(int)*n);
     int i;
     for (i = 1; i <= n; i++)
     {
         arr[i] = rand() % 10;
     }
+    return arr;
 }
-int RemplissageParIndex(int arr[], int n){
-    //int *arr = malloc(sizeof(int)*n);
+int *RemplissageParIndex( int n){
+    int *arr = malloc(sizeof(int)*n);
     for(int i=1; i<=n; i++){
         arr[i]=i;
     }
-    
+    return arr;
 }
 
-int RemplissageParIndexInverse(int arr[], int n){
-    //int *arr = malloc(sizeof(int)*n);
+
+
+int *RemplissageParIndexInverse( int n){
+    int *arr = malloc(sizeof(int)*n);
     for(int i=0; i<=n; i++){
         arr[i]=n+1-i;
     }
-
+    return arr;
 }
+
 //*********************************
 int main()
 {
@@ -237,21 +242,22 @@ int main()
     int n;
     printf("Donnez une taille a votre tableau: \n");
     scanf("%d", &n);
-    int* tableau = (int*)malloc(n * sizeof(int));
-    int* tableau2 = (int*)malloc(n * sizeof(int));
-    int* tableau3 = (int*)malloc(n * sizeof(int));
+    int *tableau = remplissageRandom(n);
+    int *tableau2 = RemplissageParIndex(n);
+    int *tableau3 = RemplissageParIndexInverse(n);
 
     
         
     printf("Tableau remplis avec random.\n");
-    remplissageRandom(tableau,n);
+    remplissageRandom(n);
+
     
     printf("Tableau remplis avec des valeurs de 1 à n.\n");
-    RemplissageParIndex(tableau2,n);
+    RemplissageParIndex(n);
+    
     
     printf("Tableau remplis avec des valeurs de n à 1.\n");
-    RemplissageParIndexInverse(tableau3,n);
-   
+    RemplissageParIndexInverse(n);
         
     
 
@@ -286,7 +292,7 @@ int main()
         tempsExec = t2 - t1;
         tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
-        //printArray(tableau, n);
+       
         break;
     case 2:
         printf("Vous avez choisi le tri à bulles.\n");
@@ -395,6 +401,7 @@ int main()
         printf("Il existe que 5 tris dans ce programme!!\n");
     }
 
-    
+    // insertionSort(tableau, 100);
+    // printArray(tableau, 100);
     return 0;
 }
