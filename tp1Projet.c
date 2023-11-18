@@ -245,15 +245,13 @@ int main()
         
     printf("Tableau remplis avec random.\n");
     remplissageRandom(tableau,n);
-    printArray(tableau, n);
     
     printf("Tableau remplis avec des valeurs de 1 à n.\n");
     RemplissageParIndex(tableau2,n);
-    printArray(tableau2, n);
     
     printf("Tableau remplis avec des valeurs de n à 1.\n");
     RemplissageParIndexInverse(tableau3,n);
-    printArray(tableau3, n);
+   
         
     
 
@@ -397,7 +395,6 @@ int main()
         printf("Il existe que 5 tris dans ce programme!!\n");
     }
 
-    // insertionSort(tableau, 100);
-    // printArray(tableau, 100);
+    
     return 0;
 }
