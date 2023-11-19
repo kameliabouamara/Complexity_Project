@@ -114,37 +114,44 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
-// Fonction pour placer l'élément pivot à la bonne position dans le tableau
-int partition(int arr[], int low, int high)
-{
-    int pivot = arr[high]; // Choix du pivot comme dernier élément
-    int i = (low - 1);     // Index du plus petit élément
-    int j;
-    for (j = low; j <= high - 1; j++)
-    {
-        // Si l'élément actuel est plus petit ou égal au pivot
-        if (arr[j] <= pivot)
-        {
-            i++; // Incrémente l'index du plus petit élément
-            swap(&arr[i], &arr[j]);
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            // Swap arr[i] and arr[j]
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
         }
     }
-    swap(&arr[i + 1], &arr[high]);
-    return (i + 1);
+
+    // Swap arr[i + 1] and arr[high] (pivot)
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+
+    return i + 1;
 }
 
-// Fonction principale pour trier un tableau en utilisant le tri rapide
-void quickSort(int arr[], int low, int high)
-{
-    if (low < high)
-    {
-        // Trouve l'élément pivot tel que l'élément pivot est maintenant à la bonne position
-        int pi = partition(arr, low, high);
+// Helper function for quicksort with only two parameters
+void quicksort_helper(int arr[], int low, int high) {
+    if (low < high) {
+        // Find the pivot such that elements smaller than pivot are on the left
+        // and elements greater than pivot are on the right
+        int pivotIndex = partition(arr, low, high);
 
-        // Trie les éléments avant et après la position de pivot
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+        // Recursively sort the subarrays
+        quicksort_helper(arr, low, pivotIndex - 1);
+        quicksort_helper(arr, pivotIndex + 1, high);
     }
+}
+
+// Main quicksort function with only two parameters
+void quickSort(int arr[], int N) {
+    quicksort_helper(arr, 0, N - 1);
 }
 
 // Fonction pour réorganiser un tas (max-heap) avec la racine à l'index i
@@ -317,26 +324,23 @@ int main()
         break;
     case 4:
         printf("Vous avez choisi le tri rapide (quick sort).\n");
-        printf("Donnez le minimum et le maximum du subarray.\n");
-        int min, max;
-        scanf("%d, %d",&min, &max);
         printf("Tableau avec valeurs random");
         t1 = clock();
-        quickSort(tableau, min, max);
+        quickSort(tableau, n);
         t2 = clock();
         tempsExec = t2 - t1;
         tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         printf("Tableau avec valeurs de 1 à n");
         t1 = clock();
-        quickSort(tableau2, min, max);
+        quickSort(tableau2,n);
         t2 = clock();
         tempsExec = t2 - t1;
         tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         printf("Tableau avec valeurs de n à 1");
         t1 = clock();
-        quickSort(tableau3, min, max);
+        quickSort(tableau3,n);
         t2 = clock();
         tempsExec = t2 - t1;
         tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
