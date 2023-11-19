@@ -8,22 +8,22 @@
 
 void bubbleSort(int arr[], int n)
 {
-    int temp;
-    int swapped;
-    int i, j;
+    int i, j, swapped, temp;
+
     for (i = 0; i <= n; i++)
     {
-        swapped = 1; // Utilisé pour optimiser le tri
+        // Utilisé pour optimiser le tri
+        swapped = 1;
         for (j = 1; j <= n - i - 1; j++)
         {
             // Comparaison et échange d'éléments si l'élément courant est plus grand que le suivant
             if (arr[j] > arr[j + 1])
             {
-                // Échange des éléments
+
                 temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
-                swapped = 1; // Indique qu'un échange a eu lieu
+                swapped = 1; // Pour Indiquer qu'un échange a eu lieu
             }
         }
         // Si aucun échange n'a eu lieu dans une itération, le tableau est déjà trié
@@ -34,7 +34,8 @@ void bubbleSort(int arr[], int n)
     }
 }
 
-//**** insertion Sort ******
+//**** Tri Insertion******
+
 void insertionSort(int arr[], int n)
 {
     int i, key, j;
@@ -53,59 +54,57 @@ void insertionSort(int arr[], int n)
         arr[j + 1] = key;
     }
 }
-
 //**** tri fusion ****
-void triFusion(int arr[], int l, int m, int r)
-{
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
+void fusionner(int tab[], int deb1, int fin1, int fin2) {
+    int *table1;
+    int deb2 = fin1 + 1;
+    int compt1 = deb1;
+    int compt2 = deb2;
+    int i;
+    int A = fin1 - deb1 + 1;
+    table1 = (int *)malloc(A * sizeof(int));
 
-    // Crée des tableaux temporaires
-    int L[n1], R[n2];
-
-    // Copie les données dans les tableaux temporaires L[] et R[]
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
-
-    // Fusionne les tableaux temporaires de retour dans arr[l..r]
-    i = 0;
-    j = 0;
-    k = l;
-    while (i < n1 && j < n2)
-    {
-        if (L[i] <= R[j])
-        {
-            arr[k] = L[i];
-            i++;
-        }
-        else
-        {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
+    for (i = deb1; i <= fin1; i++) {
+        table1[i - deb1] = tab[i];
     }
 
-    // Copie les éléments restants de L[], s'il y en a
-    while (i < n1)
-    {
-        arr[k] = L[i];
-        i++;
-        k++;
+    for (i = deb1; i <= fin2; i++) {
+        if (compt1 == deb2) {
+            break;
+        } else if (compt2 == (fin2 + 1)) {
+            tab[i] = table1[compt1 - deb1];
+            compt1++;
+        } else if (table1[compt1 - deb1] < tab[compt2]) {
+            tab[i] = table1[compt1 - deb1];
+            compt1++;
+        } else {
+            tab[i] = tab[compt2];
+            compt2++;
+        }
     }
+    free(table1);
+}
 
-    // Copie les éléments restants de R[], s'il y en a
-    while (j < n2)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
+void fusionsort_1(int tableau[], int deb, int fin) {
+    if (deb != fin) {
+        int milieu = (fin + deb) / 2;
+        fusionsort_1(tableau, deb, milieu);
+        fusionsort_1(tableau, milieu + 1, fin);
+        fusionner(tableau, deb, milieu, fin);
     }
 }
 
+double FusionSort(int tab[], int N) {
+    double temps_exe;
+    clock_t start = clock();
+    if (N > 0) {
+        fusionsort_1(tab, 0, N - 1);
+    }
+    clock_t end = clock();
+    temps_exe = (double)(end - start) / CLOCKS_PER_SEC;
+
+    return temps_exe;
+}
 //****** quick sort *******
 // Fonction pour échanger deux éléments dans un tableau
 void swap(int *a, int *b)
@@ -192,6 +191,7 @@ void heapSort(int arr[], int n)
 }
 
 // Remplissage et Affichage
+/*
 void printArray(int arr[], int n)
 {
     int i;
@@ -205,7 +205,7 @@ void printArray(int arr[], int n)
         }
     }
     printf("} \n");
-}
+}*/
 
 int *remplissageRandom(int n)
 {
@@ -242,24 +242,10 @@ int main()
     int n;
     printf("Donnez une taille a votre tableau: \n");
     scanf("%d", &n);
+
     int *tableau = remplissageRandom(n);
     int *tableau2 = RemplissageParIndex(n);
     int *tableau3 = RemplissageParIndexInverse(n);
-
-    
-        
-    printf("Tableau remplis avec random.\n");
-    remplissageRandom(n);
-
-    
-    printf("Tableau remplis avec des valeurs de 1 à n.\n");
-    RemplissageParIndex(n);
-    
-    
-    printf("Tableau remplis avec des valeurs de n à 1.\n");
-    RemplissageParIndexInverse(n);
-        
-    
 
     int t1, t2;
     double tempsExec;
@@ -292,7 +278,7 @@ int main()
         tempsExec = t2 - t1;
         tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
-       
+
         break;
     case 2:
         printf("Vous avez choisi le tri à bulles.\n");
@@ -320,30 +306,13 @@ int main()
         break;
     case 3:
         printf("Vous avez choisi le tri Fusion.\n");
-       
-        int left, right, middle;
-        printf("Donnez les valeurs left, middle, right pour créer les 2 subarrays.\n");
-        scanf("%d, %d, %d",&left, &middle, &right);
-        printf("Tableau avec valeurs random");
-        t1 = clock();
-        triFusion(tableau, left, middle, right);
-        t2 = clock();
-        tempsExec = t2 - t1;
-        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        tempsExec = FusionSort(tableau, n);
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         printf("Tableau avec valeurs de 1 à n");
-        t1 = clock();
-        triFusion(tableau2, left, middle, right);
-        t2 = clock();
-        tempsExec = t2 - t1;
-        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        tempsExec = FusionSort(tableau2, n);
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         printf("Tableau avec valeurs de n à 1");
-        t1 = clock();
-        triFusion(tableau3, left, middle, right);
-        t2 = clock();
-        tempsExec = t2 - t1;
-        tempsExec = ((double)tempsExec)/CLOCKS_PER_SEC;
+        tempsExec = FusionSort(tableau3, n);
         printf(" Le temps d'execution est calcul est comme suit : %f \n", tempsExec);
         break;
     case 4:
@@ -401,7 +370,6 @@ int main()
         printf("Il existe que 5 tris dans ce programme!!\n");
     }
 
-    // insertionSort(tableau, 100);
-    // printArray(tableau, 100);
+
     return 0;
 }
